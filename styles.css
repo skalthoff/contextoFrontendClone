@@ -23,8 +23,8 @@ body{background:var(--bg-color);color:var(--text-color);font-size:18px;font-weig
 .button.small{font-size:16px;padding:10px 15px}
 .button.subtle{background:none;color:var(--text-color)}
 .button.subtle:hover{background:var(--bg-darker-color)}
-.modal-bg{align-items:center;display:flex;justify-content:center;left:0;top:0;position:fixed;width:100vw;height:100svh;background:rgba(0,0,0,.1);z-index:2000}
-.modal{background:var(--bg-lighter-color);border:var(--modal-border);border-radius:10px;box-shadow:0 1px 1px var(--shadow-color),0 2px 2px var(--shadow-color),0 4px 4px var(--shadow-color),0 8px 8px var(--shadow-color),0 16px 16px var(--shadow-color);padding:20px;width:calc(100vw - 40px);max-width:460px;max-height:calc(100svh - 140px);overflow-y:auto}
+.modal-bg{align-items:center;display:flex;justify-content:center;left:0;top:0;position:fixed;width:100vw;height:100vh;height:100svh;background:rgba(0,0,0,.1);z-index:2000}
+.modal{background:var(--bg-lighter-color);border:var(--modal-border);border-radius:10px;box-shadow:0 1px 1px var(--shadow-color),0 2px 2px var(--shadow-color),0 4px 4px var(--shadow-color),0 8px 8px var(--shadow-color),0 16px 16px var(--shadow-color);padding:20px;width:calc(100vw - 40px);max-width:460px;max-height:calc(100vh - 140px);max-height:calc(100svh - 140px);overflow-y:auto}
 .modal-title{display:flex;align-items:center;padding-bottom:5px}
 .modal-title h2{font-size:20px;font-weight:var(--bold-weight);margin:0;padding-left:10px}
 .modal p{font-size:16px;margin:10px 0}
