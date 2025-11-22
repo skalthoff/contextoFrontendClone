@@ -8,7 +8,7 @@ class ContextoGame {
             currentGuess: '',
             message: '',
             messageType: '',
-            gameId: 845, // Fixed game ID (actual gameplay)
+            gameId: 1052, // Fixed game ID (actual gameplay)
             displayGameId: this.getTodayGameId(), // Display current day number
             foundWord: false,
             gaveUp: false,
@@ -37,8 +37,8 @@ class ContextoGame {
         const saved = localStorage.getItem('contextoState');
         if (saved) {
             const data = JSON.parse(saved);
-            // Always load state for game 845, but update display ID
-            if (data.gameId === 845) {
+            // Always load state for game 1052, but update display ID
+            if (data.gameId === 1052) {
                 this.state = { ...this.state, ...data, displayGameId: this.getTodayGameId() };
             }
         }
