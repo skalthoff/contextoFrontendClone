@@ -197,6 +197,12 @@ class ContextoGame {
                 ${this.state.showStats ? this.renderStatsModal() : ''}
                 ${this.state.showSettings ? this.renderSettingsModal() : ''}
                 `;
+
+        // Auto-focus input
+        const input = app.querySelector('.word');
+        if (input) {
+            input.focus();
+        }
     }
 
     renderInstructionsModal() {
