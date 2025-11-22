@@ -1,0 +1,10 @@
+{
+    "name": "contexto-frontend-clone",
+    "compatibility_date": "2024-11-22",
+    "assets": {
+        "directory": "public"
+    },
+    "observability": {
+        "enabled": true
+    }
+}

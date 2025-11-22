@@ -4,8 +4,8 @@
   "description": "Contexto game frontend clone",
   "type": "module",
   "scripts": {
-    "dev": "python3 -m http.server 3000",
-    "start": "python3 -m http.server 3000"
+    "dev": "python3 -m http.server 3000 --directory public",
+    "start": "python3 -m http.server 3000 --directory public"
   },
   "keywords": [
     "contexto",
