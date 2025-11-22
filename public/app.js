@@ -186,7 +186,7 @@ class ContextoGame {
                             </div>
                         ` : `
                             <form onsubmit="event.preventDefault(); game.submitGuess(game.state.currentGuess);" autocomplete="off">
-                                <input class="word" type="text" placeholder="type a word" value="${this.state.currentGuess}" oninput="game.state.currentGuess=this.value" onkeydown="if(event.key==='Enter'){game.submitGuess(this.value)}" />
+                                <input class="word" type="text" placeholder="type a word" value="${this.state.currentGuess}" oninput="game.state.currentGuess=this.value" />
                             </form>
                         `}
                         <div class="message ${this.state.messageType}">${this.state.message}</div>
