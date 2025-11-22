@@ -1,5 +1,5 @@
 // Contexto Clone - Enhanced UI Version
-const API_BASE = 'https://api.contexto.me/machado/en';
+const API_BASE = '/api';
 
 class ContextoGame {
     constructor() {
@@ -19,11 +19,11 @@ class ContextoGame {
             showSettings: false,
             theme: (localStorage.getItem('contextoTheme') || 'light')
         };
-        
+
         this.loadState();
         this.init();
     }
-    
+
     getTodayGameId() {
         // Base game start date (original Contexto launch)
         const startDate = new Date('2022-02-23');
@@ -32,7 +32,7 @@ class ContextoGame {
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
         return diffDays;
     }
-    
+
     loadState() {
         const saved = localStorage.getItem('contextoState');
         if (saved) {
@@ -43,20 +43,20 @@ class ContextoGame {
             }
         }
     }
-    
+
     saveState() {
         localStorage.setItem('contextoState', JSON.stringify(this.state));
     }
-    
+
     async init() {
         this.render();
     }
-    
+
     async submitGuess(word) {
         if (!word || word.trim() === '') return;
-        
+
         word = word.toLowerCase().trim();
-        
+
         // Check if word is single word
         if (word.includes(' ')) {
             this.setState({
@@ -65,7 +65,7 @@ class ContextoGame {
             });
             return;
         }
-        
+
         // Check if already guessed
         if (this.state.guessHistory.some(g => g.word === word)) {
             this.setState({
@@ -74,17 +74,17 @@ class ContextoGame {
             });
             return;
         }
-        
+
         try {
             // Call Contexto API
             const response = await fetch(`${API_BASE}/game/${this.state.gameId}/${word}`);
-            
+
             if (!response.ok) {
                 throw new Error('Word not found');
             }
-            
+
             const data = await response.json();
-            
+
             if (data.distance < 0) {
                 this.setState({
                     message: 'Word not in dictionary',
@@ -92,17 +92,17 @@ class ContextoGame {
                 });
                 return;
             }
-            
+
             const newGuess = {
                 word: data.word || word,
                 distance: data.distance
             };
-            
+
             const newHistory = [...this.state.guessHistory, newGuess];
             newHistory.sort((a, b) => a.distance - b.distance);
-            
+
             const foundWord = data.distance === 0;
-            
+
             this.setState({
                 guessHistory: newHistory,
                 currentGuess: '',
@@ -112,7 +112,7 @@ class ContextoGame {
                 secretWord: foundWord ? newGuess.word : this.state.secretWord,
                 numberOfAttempts: this.state.numberOfAttempts + 1
             });
-            
+
         } catch (error) {
             this.setState({
                 message: 'Error checking word. Please try again.',
@@ -120,9 +120,9 @@ class ContextoGame {
             });
         }
     }
-    
+
     // Removed tip and give up functionality per user request
-    
+
     setState(newState) {
         this.state = { ...this.state, ...newState };
         this.saveState();
@@ -137,24 +137,24 @@ class ContextoGame {
         const next = this.state.theme === 'light' ? 'dark' : 'light';
         this.setState({ theme: next });
     }
-    
+
     getBarColor(distance) {
         if (distance < 100) return 'var(--green)';
         if (distance < 1500) return 'var(--yellow)';
         return 'var(--red)';
     }
-    
+
     getBarWidth(distance) {
         const percentage = Math.exp(-distance / 40000 * 100);
         const normalized = (percentage - Math.exp(-100)) / (Math.exp(0) - Math.exp(-100));
         return Math.max(1, normalized * 100);
     }
-    
-        render() {
-                const app = document.getElementById('root');
-                const guessesMarkup = this.state.guessHistory.map((guess, index) => {
-                        const current = index === 0 ? ' current' : '';
-                        return `
+
+    render() {
+        const app = document.getElementById('root');
+        const guessesMarkup = this.state.guessHistory.map((guess, index) => {
+            const current = index === 0 ? ' current' : '';
+            return `
                         <div class="row-wrapper${current}">
                                 <div class="outer-bar"></div>
                                 <div class="inner-bar" style="width:${this.getBarWidth(guess.distance)}%;background-color:${this.getBarColor(guess.distance)}"></div>
@@ -163,8 +163,8 @@ class ContextoGame {
                                     <span>${guess.distance === 0 ? '0' : guess.distance}</span>
                                 </div>
                         </div>`;
-                }).join('');
-                app.innerHTML = `
+        }).join('');
+        app.innerHTML = `
                 <div class="wrapper">
                     <main>
                         <div class="top-bar">
@@ -197,7 +197,7 @@ class ContextoGame {
                 ${this.state.showStats ? this.renderStatsModal() : ''}
                 ${this.state.showSettings ? this.renderSettingsModal() : ''}
                 `;
-        }
+    }
 
     renderInstructionsModal() {
         return `
